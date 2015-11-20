@@ -1,0 +1,7 @@
+{
+  "!name": "ExtraDef",
+  "function": {
+    "!type": "fn()",
+    "!doc": "A JavaScript function is a block of code designed to perform a particular task. It is defined with the 'function' keyword, followed by a 'name', followed by parentheses ()."
+  }
+}
