@@ -120,7 +120,7 @@
                }
                
             }
-
+            cm.focus();
             cm.setSelection(cur_anns.from, cur_anns.to);
             if (multiple) {
                if (cur < anns.length - 1) {
