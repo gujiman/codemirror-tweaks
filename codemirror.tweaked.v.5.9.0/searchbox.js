@@ -37,19 +37,30 @@
                ConstructSearch(cm);
             }
         });
+        
+
     });
     
+   CodeMirror.defineExtension("triggSearch", function (cm) {
+      var id = cm.getOption("parentID");
+      if (Search[id] && Search[id].isVisible()) {
+         Search[id].hide();
+      }else{
+         ConstructSearch(cm);
+      }
+   });
+  
     function ConstructSearch(cm){
+
       if (cm.getOption("searchbox") == true) {
          var id = cm.getOption("parentID");
-
          if ($("#" + id).children(".ace_search").length == 0){
             if (Search[id]){
                delete Search[id];
             }
             Search[id] = new SearchBox(cm);
          }
-
+         
          Search[id].show();
       }
     }
