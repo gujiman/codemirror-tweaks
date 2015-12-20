@@ -41,6 +41,18 @@
 
     });
     
+   CodeMirror.defineExtension("hideSearchBox", function (cm) {
+      var id = cm.getOption("parentID");
+      
+      if (Search[id]){
+         Search[id].hide();
+      }
+      if (Search['allScriptsplit']){
+         Search['allScriptsplit'].hide();
+      }
+      
+   });
+    
    CodeMirror.defineExtension("triggSearch", function (cm) {
       var id = cm.getOption("parentID");
       if (Search[id] && Search[id].isVisible()) {
@@ -54,14 +66,16 @@
 
       if (cm.getOption("searchbox") == true) {
          var id = cm.getOption("parentID");
+         
          if ($("#" + id).children(".ace_search").length == 0){
             if (Search[id]){
                delete Search[id];
             }
             Search[id] = new SearchBox(cm);
+            
          }
-         
-         Search[id].show();
+         Search[id].show(cm.doc.getSelection());
+
       }
     }
     
@@ -83,6 +97,8 @@
             self.replaceInput           = self.replaceBox.querySelector('.ace_search_field');
             
             self.close                  = el.querySelector('.close');
+            
+            self.element.style.display = 'none';
         }
         
         function init() {
@@ -339,6 +355,8 @@
         
         this.show = function(value) {
            
+           
+            var isNone = this.element.style.display;
             this.element.style.display = '';
 
             
@@ -352,8 +370,10 @@
             var editor = $("#" + id).children(".CodeMirror");
             var searchBX = $("#" + id).children(".ace_search"); 
             
-            editor.css("height",editor.outerHeight(true) - searchBX.outerHeight(true));
             
+            if (isNone == "none"){
+               editor.css("height",editor.outerHeight(false) - searchBX.outerHeight(false));
+            }
             
             
         };
